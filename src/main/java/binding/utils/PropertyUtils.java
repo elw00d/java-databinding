@@ -12,7 +12,7 @@ public class PropertyUtils {
 
     public static PropertyInfo getProperty(Class<?> cls, String propertyName) {
         if (null == cls) throw new IllegalArgumentException("cls is null");
-        if (null == propertyName || propertyName.isEmpty())
+        if (null == propertyName || propertyName.length() == 0)
             throw new IllegalArgumentException("propertyName is null or empty");
         if (!Character.isLowerCase(propertyName.charAt(0)))
             throw new IllegalArgumentException("propertyName starts with uppercase character");

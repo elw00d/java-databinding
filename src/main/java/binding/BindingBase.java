@@ -121,9 +121,9 @@ public class BindingBase {
     public BindingBase( Object target, String targetProperty, INotifyPropertyChanged source,
                         String sourceProperty, BindingMode mode, BindingSettingsBase settings ) {
         if (null == target) throw new IllegalArgumentException( "target is null" );
-        if (null == targetProperty || targetProperty.isEmpty()) throw new IllegalArgumentException( "targetProperty is null or empty" );
+        if (null == targetProperty || targetProperty.length() == 0) throw new IllegalArgumentException( "targetProperty is null or empty" );
         if (null == source) throw new IllegalArgumentException( "source is null" );
-        if (null == sourceProperty || sourceProperty.isEmpty()) throw new IllegalArgumentException( "sourceProperty is null or empty" );
+        if (null == sourceProperty || sourceProperty.length() == 0) throw new IllegalArgumentException( "sourceProperty is null or empty" );
         //
         this.target = target;
         this.targetProperty = targetProperty;
@@ -134,7 +134,7 @@ public class BindingBase {
         this.settings = settings;
     }
 
-    protected class SourceChangeListener implements IPropertyChangedListener {
+    public class SourceChangeListener implements IPropertyChangedListener {
         public void propertyChanged( String propertyName ) {
             if (!ignoreSourceListener && propertyName.equals( sourceProperty ))
                 updateTarget();
@@ -374,7 +374,7 @@ public class BindingBase {
         }
     }
 
-    protected class TargetChangeListener implements IPropertyChangedListener {
+    public class TargetChangeListener implements IPropertyChangedListener {
         public void propertyChanged( String propertyName ) {
             if (!ignoreTargetListener && propertyName.equals( targetProperty ))
                 updateSource();

@@ -10,7 +10,7 @@ package binding.validators;
 public class RequiredValidator implements IBindingValidator<Object> {
     @Override
     public ValidationResult validate(Object value) {
-        if (value == null || value instanceof String && ((String) value).isEmpty())
+        if (value == null || value instanceof String && ((String) value).length() == 0)
             return new ValidationResult(false, "Value is required");
         return new ValidationResult(true);
     }
