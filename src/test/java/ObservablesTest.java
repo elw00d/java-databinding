@@ -1,4 +1,4 @@
-import binding.Binding;
+import binding.BindingBase;
 import binding.BindingMode;
 import binding.INotifyPropertyChanged;
 import binding.IPropertyChangedListener;
@@ -61,7 +61,7 @@ public class ObservablesTest {
     public void testOneWayBinding() {
         Source source = new Source();
         Source target = new Source();
-        Binding binding = new Binding( target, "list", source, "list", BindingMode.OneWay );
+        BindingBase binding = new BindingBase( target, "list", source, "list", BindingMode.OneWay );
         binding.bind();
         Assert.assertTrue(target.getList().isEmpty());
         source.getList().add( "1" );

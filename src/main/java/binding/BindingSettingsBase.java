@@ -13,18 +13,18 @@ import java.util.HashMap;
  * @author igor.kostromin
  *         26.06.13 16:26
  */
-public class BindingSettings {
-    public static BindingSettings DEFAULT_SETTINGS ;
+public class BindingSettingsBase {
+    public static BindingSettingsBase DEFAULT_SETTINGS ;
 
     static  {
-        DEFAULT_SETTINGS = new BindingSettings();
+        DEFAULT_SETTINGS = new BindingSettingsBase();
         DEFAULT_SETTINGS.initializeDefault();
     }
 
     private HashMap<Class, HashMap<Class, IBindingConverter>> converters = new HashMap<Class, HashMap<Class, IBindingConverter>>(  );
     private HashMap<Class, IBindingAdapter> adapters = new HashMap<Class, IBindingAdapter>(  );
 
-    public BindingSettings() {
+    public BindingSettingsBase() {
     }
 
     /**
@@ -32,12 +32,6 @@ public class BindingSettings {
      */
     public void initializeDefault() {
         addConverter( new StringToIntegerConverter() );
-
-        addAdapter( new JTextFieldAdapter() );
-        addAdapter( new JPasswordFieldAdapter() );
-        addAdapter( new JCheckBoxAdapter() );
-        addAdapter( new JListAdapter());
-        addAdapter( new JLabelAdapter());
     }
 
     public <T> void addAdapter(IBindingAdapter<T> adapter) {

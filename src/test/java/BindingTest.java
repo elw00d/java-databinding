@@ -3,7 +3,6 @@ import binding.validators.RequiredValidator;
 import junit.framework.Assert;
 import org.junit.Test;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,7 +87,7 @@ public class BindingTest {
         Source source = new Source();
         Target target = new Target();
         source.setI( 4 );
-        Binding binding= new Binding( target, "text", source, "i", BindingMode.Default );
+        BindingBase binding= new BindingBase( target, "text", source, "i", BindingMode.Default );
         binding.bind();
         source.setI( 5 );
         Assert.assertTrue(target.getText().equals( "5" ));
@@ -102,22 +101,10 @@ public class BindingTest {
     }
 
     @Test
-    public void testJTextField() {
-        Source source = new Source();
-        JTextField textField = new JTextField(  );
-        source.setI( 1 );
-        Binding binding = new Binding( textField, "text", source, "i", BindingMode.Default, UpdateSourceTrigger.PropertyChanged );
-        binding.bind();
-        Assert.assertTrue( textField.getText().equals( "1" ) );
-        textField.setText( "2" );
-        Assert.assertTrue( source.getI() == 2 );
-    }
-
-    @Test
     public void testOneTimeBinding() {
         Source source = new Source();
         Target target = new Target();
-        Binding binding = new Binding( target, "text", source, "i", BindingMode.OneTime );
+        BindingBase binding = new BindingBase( target, "text", source, "i", BindingMode.OneTime );
         source.setI( 5 );
         binding.bind();
         Assert.assertTrue( target.getText().equals( "5" ) );
@@ -135,7 +122,7 @@ public class BindingTest {
     public void testValidationAndOneWayToSourceBinding() {
         Source source = new Source();
         Target target = new Target();
-        Binding binding = new Binding( target, "text", source, "i", BindingMode.OneWayToSource );
+        BindingBase binding = new BindingBase( target, "text", source, "i", BindingMode.OneWayToSource );
         binding.setValidator( new RequiredValidator() );
         final Wrapper<BindingResult> lastResult = new Wrapper<BindingResult>(  );
         binding.setResultListener( new IBindingResultListener() {
@@ -158,7 +145,7 @@ public class BindingTest {
         Source source = new Source();
         Target target = new Target();
         target.setText( "" );
-        Binding binding = new Binding( target, "text", source, "i", BindingMode.OneWay );
+        BindingBase binding = new BindingBase( target, "text", source, "i", BindingMode.OneWay );
         binding.bind();
         Assert.assertTrue( target.getText() == null);
         source.setI( 1 );

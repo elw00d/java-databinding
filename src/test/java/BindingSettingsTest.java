@@ -87,13 +87,13 @@ public class BindingSettingsTest {
 
     @Test
     public void bindingSettingsTest() {
-        BindingSettings settings = new BindingSettings();
+        BindingSettingsBase settings = new BindingSettingsBase();
         settings.initializeDefault();
         settings.addConverter(new ListToArrayConverter());
 
         Source source = new Source();
         Target target = new Target();
-        Binding binding = new Binding(target, "array", source, "list", BindingMode.OneWay, settings);
+        BindingBase binding = new BindingBase(target, "array", source, "list", BindingMode.OneWay, settings);
         binding.bind();
         Assert.assertTrue(target.getArray() == null);
         source.setList(new ArrayList<String>() {{
