@@ -11,3 +11,5 @@ java-databinding-android/java-databinding-android/java-databinding-android.iml
 java-databinding-swing/.idea/
 java-databinding-swing/java-databinding-swing.iml
 java-databinding-swing/target/
+.idea/
+out/
