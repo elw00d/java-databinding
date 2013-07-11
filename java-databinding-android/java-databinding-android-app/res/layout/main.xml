@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:x="http://schemas.android.com/apk/res/databinding.android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        >
+    <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:title="Hello World, MyActivity"
+            android:id="@id/textTitle"/>
+    <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:title="New EditText"
+            android:id="@+id/editText"
+            x:binding="{Binding Path='text', Mode=TwoWay}"/>
+    <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="New EditText"
+            android:id="@+id/editText1"/>
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="New Button"
+            android:id="@+id/button"/>
+</LinearLayout>
+

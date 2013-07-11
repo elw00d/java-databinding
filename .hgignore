@@ -2,3 +2,9 @@ syntax: glob
 java-databinding/target/
 java-databinding/.idea/
 java-databinding/java-databinding.iml
+java-databinding-android/.idea/
+java-databinding-android/java-databinding-android-app/out/
+java-databinding-android/out/
+java-databinding-android/java-databinding-android-app/gen/
+java-databinding-android/java-databinding-android-app/java-databinding-android-app.iml
+java-databinding-android/java-databinding-android/java-databinding-android.iml
