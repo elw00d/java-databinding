@@ -8,3 +8,6 @@ java-databinding-android/out/
 java-databinding-android/java-databinding-android-app/gen/
 java-databinding-android/java-databinding-android-app/java-databinding-android-app.iml
 java-databinding-android/java-databinding-android/java-databinding-android.iml
+java-databinding-swing/.idea/
+java-databinding-swing/java-databinding-swing.iml
+java-databinding-swing/target/
