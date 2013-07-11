@@ -1,4 +1,4 @@
 syntax: glob
-.idea/
-java-databinding.iml
-target/
+java-databinding/target/
+java-databinding/.idea/
+java-databinding/java-databinding.iml
