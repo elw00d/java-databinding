@@ -1,4 +1,4 @@
-package databinding;
+package binding;
 
 /**
  * UI controls mode to determine when trigger source to be updated.

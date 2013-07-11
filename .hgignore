@@ -13,3 +13,5 @@ java-databinding-swing/java-databinding-swing.iml
 java-databinding-swing/target/
 .idea/
 out/
+./build/
+syntax: regexp

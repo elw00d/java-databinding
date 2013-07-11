@@ -1,7 +1,7 @@
-package databinding.adapters;
+package binding;
 
 import binding.adapters.IBindingAdapter;
-import databinding.UpdateSourceTrigger;
+import binding.UpdateSourceTrigger;
 
 /**
  * Inheritor if IBindingAdapter, adds specific functionality for UI adapters.

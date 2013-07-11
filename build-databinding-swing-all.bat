@@ -1,0 +1,1 @@
+start ant -f build-swing.xml

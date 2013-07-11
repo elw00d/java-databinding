@@ -1,11 +1,11 @@
-package databinding;
+package binding;
 
 import android.view.View;
 import binding.BindingBase;
 import binding.BindingMode;
 import binding.BindingSettingsBase;
 import binding.INotifyPropertyChanged;
-import databinding.adapters.IUiBindingAdapter;
+import binding.IUiBindingAdapter;
 
 /**
  * @author igor.kostromin

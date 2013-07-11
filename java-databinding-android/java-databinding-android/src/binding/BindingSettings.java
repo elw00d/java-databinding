@@ -1,8 +1,8 @@
-package databinding;
+package binding;
 
 import binding.BindingSettingsBase;
-import databinding.adapters.EditTextAdapter;
-import databinding.adapters.TextViewAdapter;
+import binding.EditTextAdapter;
+import binding.TextViewAdapter;
 
 /**
  * @author igor.kostromin

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="java-databinding" default="rebuild">
+
+    <target name="init">
+        <property file="build.properties"/>
+    </target>
+
+    <target name="clean" depends="init">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="build" depends="init">
+        <mkdir dir="${build.dir}/classes"/>
+
+        <javac srcdir="${src.dir}"
+               destdir="${build.dir}/classes"
+               debug="${compiler.debug}"
+               optimize="${compiler.optimize}"
+               deprecation="${compiler.deprecation}"
+               encoding="${compiler.encoding}"
+                source="1.6" target="1.6">
+        </javac>
+
+        <copy todir="${build.dir}/classes">
+            <fileset dir="${src.dir}">
+                <include name="**/*"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+
+        <jar jarfile="${build.dir}/${module.name}.jar">
+            <fileset dir="${build.dir}/classes"/>
+        </jar>
+    </target>
+
+    <target name="rebuild" depends="clean, build"/>
+</project>

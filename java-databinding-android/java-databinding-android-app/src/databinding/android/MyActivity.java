@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import binding.INotifyPropertyChanged;
 import binding.IPropertyChangedListener;
-import databinding.Binding;
+import binding.Binding;
 
 import java.util.ArrayList;
 import java.util.List;

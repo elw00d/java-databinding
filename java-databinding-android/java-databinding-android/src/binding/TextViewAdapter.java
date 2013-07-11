@@ -1,9 +1,9 @@
-package databinding.adapters;
+package binding;
 
 import android.widget.TextView;
 import binding.BindingMode;
 import binding.IPropertyChangedListener;
-import databinding.UpdateSourceTrigger;
+import binding.UpdateSourceTrigger;
 
 /**
  * @author igor.kostromin

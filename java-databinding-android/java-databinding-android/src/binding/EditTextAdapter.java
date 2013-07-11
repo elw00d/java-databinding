@@ -1,8 +1,8 @@
-package databinding.adapters;
+package binding;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import databinding.UpdateSourceTrigger;
+import binding.UpdateSourceTrigger;
 import android.widget.EditText;
 import binding.BindingMode;
 import binding.IPropertyChangedListener;

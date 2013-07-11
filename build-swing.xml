@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="databinding-swing-all" default="rebuild">
+    <target name="init">
+        <property file="build.properties"/>
+    </target>
+
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <target name="compile-databinding-swing">
+        <ant antfile="./java-databinding-swing/build.xml" inheritall="false"/>
+    </target>
+
+    <target name="collect-jars">
+        <jar jarfile="build/databinding-swing-all-${version}.jar">
+            <fileset dir="./java-databinding/build/classes"/>
+            <fileset dir="./java-databinding-swing/build/classes"/>
+        </jar>
+        <jar jarfile="build/databinding-swing-all-${version}-sources.jar">
+            <fileset dir="./java-databinding/src/main/java"/>
+            <fileset dir="./java-databinding-swing/src/main/java"/>
+        </jar>
+    </target>
+
+    <target name="rebuild" depends="init, clean, compile-databinding-swing, collect-jars">
+    </target>
+</project>
