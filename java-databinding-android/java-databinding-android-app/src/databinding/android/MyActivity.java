@@ -12,11 +12,23 @@ import binding.IPropertyChangedListener;
 import binding.Binding;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MyActivity extends Activity {
 
     private static class MyFactory implements LayoutInflater.Factory {
+
+        private static HashMap<String, String> knownUiClasses = new HashMap<String, String>();
+        static {
+            knownUiClasses.put("ViewStub", "android.view.");
+            knownUiClasses.put("SurfaceView", "android.view.");
+            knownUiClasses.put("TextureView", "android.view.");
+            knownUiClasses.put("GestureOverlayView", "android.gesture.");
+            knownUiClasses.put("ExtractEditText", "android.inputmethodservice.");
+            knownUiClasses.put("KeyboardView", "android.inputmethodservice.");
+            knownUiClasses.put("WebView", "android.webkit.");
+        }
 
         private final LayoutInflater inflater;
 
@@ -28,14 +40,23 @@ public class MyActivity extends Activity {
         public View onCreateView( String s, Context context, AttributeSet attributeSet ) {
             View view = null;
             try {
-                if (s.equals( "EditText" )) {
-                view = inflater.createView("android.widget." + s, null , attributeSet );
-                if (view.getId() == R.id.editText) {
-                    String binding = attributeSet.getAttributeValue( "http://schemas.android.com/apk/res/databinding.android", "binding" );
+                String fullClassName;
+                if (s.contains(".")) {
+                    fullClassName = s;
+                } else {
+                    if (knownUiClasses.containsKey(s)) {
+                        fullClassName = knownUiClasses.get(s) + s;
+                    } else {
+                        fullClassName = "android.widget." + s;
+                    }
+                }
+                //
+                view = inflater.createView(fullClassName, null , attributeSet );
+                String binding = attributeSet.getAttributeValue( "http://schemas.android.com/apk/res/databinding.android", "binding" );
+                if (null != binding) {
+                    // todo : parse attribute value and DO WORK
                 }
                 return view;
-
-                } else return null;
             } catch ( ClassNotFoundException e ) {
                 throw new RuntimeException( e );
             }
