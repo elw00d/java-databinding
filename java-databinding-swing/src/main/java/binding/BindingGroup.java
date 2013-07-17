@@ -1,5 +1,7 @@
 package binding;
 
+import binding.validators.IBindingValidator;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,18 +27,20 @@ public class BindingGroup {
         String sourceProperty;
         BindingMode mode;
         UpdateSourceTrigger updateSourceTrigger;
+        IBindingValidator validator ;
 
         private BindingProto( JComponent target, String targetProperty, String sourceProperty, BindingMode mode,
-                UpdateSourceTrigger updateSourceTrigger) {
+                UpdateSourceTrigger updateSourceTrigger, IBindingValidator validator) {
             this.target = target;
             this.targetProperty = targetProperty;
             this.sourceProperty = sourceProperty;
             this.mode = mode;
             this.updateSourceTrigger = updateSourceTrigger;
+            this.validator = validator;
         }
         
         private BindingProto( JComponent target, String targetProperty, String sourceProperty, BindingMode mode ) {
-            this(target, targetProperty, sourceProperty, mode, UpdateSourceTrigger.Default);
+            this(target, targetProperty, sourceProperty, mode, UpdateSourceTrigger.Default, null);
         }
     }
 
@@ -44,7 +48,16 @@ public class BindingGroup {
     private BindingSettingsBase settings;
     private List<BindingProto> protos = new ArrayList<BindingProto>(  );
     private List<BindingBase> bindings = new ArrayList<BindingBase>(  );
+    private IBindingResultsListener bindingResultsListener;
     private boolean bound = false;
+
+    public IBindingResultsListener getBindingResultsListener() {
+        return bindingResultsListener;
+    }
+
+    public void setBindingResultsListener( IBindingResultsListener bindingResultsListener ) {
+        this.bindingResultsListener = bindingResultsListener;
+    }
 
     /**
      * Creates empty binding group object.
@@ -94,6 +107,11 @@ public class BindingGroup {
         protos.add( new BindingProto( target, targetProperty, sourceProperty, BindingMode.Default ) );
     }
 
+    public void add(JComponent target, String targetProperty, String sourceProperty, IBindingValidator validator) {
+        protos.add( new BindingProto( target, targetProperty, sourceProperty, BindingMode.Default,
+                UpdateSourceTrigger.Default, validator) );
+    }
+
     /**
      * Adds the binding prototype to group.
      */
@@ -101,12 +119,22 @@ public class BindingGroup {
         protos.add( new BindingProto( target, targetProperty, sourceProperty, mode ) );
     }
 
+    public void add(JComponent target, String targetProperty, String sourceProperty, BindingMode mode,
+                    IBindingValidator validator) {
+        protos.add( new BindingProto( target, targetProperty, sourceProperty, mode, UpdateSourceTrigger.Default, validator) );
+    }
+
     /**
      * Adds the binding prototype to group.
      */
     public void add(JComponent target, String targetProperty, String sourceProperty, BindingMode mode,
             UpdateSourceTrigger updateSourceTrigger) {
-        protos.add( new BindingProto(target, targetProperty, sourceProperty, mode, updateSourceTrigger));
+        protos.add( new BindingProto(target, targetProperty, sourceProperty, mode, updateSourceTrigger, null));
+    }
+
+    public void add(JComponent target, String targetProperty, String sourceProperty, BindingMode mode,
+            UpdateSourceTrigger updateSourceTrigger, IBindingValidator validator) {
+        protos.add( new BindingProto(target, targetProperty, sourceProperty, mode, updateSourceTrigger, validator));
     }
 
     /**
@@ -114,7 +142,7 @@ public class BindingGroup {
      */
     public void bind() {
         if (null == source) throw new IllegalStateException( "source is not defined" );
-        for ( BindingProto proto : this.protos ) {
+        for ( final BindingProto proto : this.protos ) {
             BindingBase binding;
             if (settings == null) {
                 binding = new Binding( proto.target, proto.targetProperty, source,
@@ -122,6 +150,16 @@ public class BindingGroup {
             } else {
                 binding = new Binding( proto.target, proto.targetProperty, source,
                         proto.sourceProperty, proto.mode, proto.updateSourceTrigger, settings );
+            }
+            if (proto.validator != null)
+                binding.setValidator( proto.validator );
+            if (bindingResultsListener != null) {
+                binding.setResultListener( new IBindingResultListener() {
+                    @Override
+                    public void onBinding( BindingResult result ) {
+                        bindingResultsListener.onBinding( proto.sourceProperty, result );
+                    }
+                } );
             }
             binding.bind();
         }

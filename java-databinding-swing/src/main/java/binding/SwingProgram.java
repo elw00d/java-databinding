@@ -3,6 +3,9 @@ package binding;
 import binding.observables.IObservableList;
 import binding.observables.IObservableListListener;
 import binding.observables.ObservableList;
+import binding.validators.RequiredValidator;
+
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -205,13 +208,25 @@ public class SwingProgram {
         });
         BindingGroup group = new BindingGroup(model);
         group.add(jframe.textInteger, "text", "integerValue", BindingMode.Default, UpdateSourceTrigger.PropertyChanged);
-        group.add(jframe.textEmail, "text", "email");
+        group.add(jframe.textEmail, "text", "email", BindingMode.Default, UpdateSourceTrigger.PropertyChanged, new RequiredValidator() );
         group.add(jframe.password, "text", "password");
         group.add(jframe.checkboxRemember, "checked", "remember");
         group.add(jframe.listItems, "items", "items", BindingMode.OneWay);
         group.add(jframe.listItems, "selectedItems", "selectedItems", BindingMode.OneWayToSource);
+        group.setBindingResultsListener( new IBindingResultsListener() {
+            @Override
+            public void onBinding( String sourceProperty, BindingResult result ) {
+                if ("email".equals( sourceProperty )) {
+                    if (result.hasError) {
+                        jframe.textEmail.setBackground( Color.RED );
+                    } else {
+                        jframe.textEmail.setBackground( Color.WHITE );
+                    }
+                }
+            }
+        } );
         group.bind();
-        
+
         jframe.buttonAddItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

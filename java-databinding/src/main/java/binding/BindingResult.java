@@ -23,6 +23,7 @@ public class BindingResult {
     public BindingResult( boolean hasConversionError, boolean hasValidationError, String message ) {
         this.hasConversionError = hasConversionError;
         this.hasValidationError = hasValidationError;
+        this.hasError = hasConversionError || hasValidationError;
         this.message = message;
     }
 }

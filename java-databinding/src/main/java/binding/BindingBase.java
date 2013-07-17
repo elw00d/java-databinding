@@ -193,10 +193,6 @@ public class BindingBase {
                     targetPropertyInfo.setter.invoke( target, converted);
                 else
                     adapter.setValue( target, targetProperty, converted );
-                //
-                if ( null != resultListener ) {
-                    resultListener.onBinding( new BindingResult( false ) );
-                }
             }
         } catch ( IllegalAccessException e ) {
             throw new RuntimeException( e );
